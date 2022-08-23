@@ -34,6 +34,12 @@ public class FallingWord {
 		this.x=x; //only need to set x, word is at top of screen at start
 		this.maxY=maxY;
 	}
+
+	FallingWord(int y, int maxX, String text) { //most commonly used constructor - sets it all. *************
+		this(text);
+		this.y=y; //only need to set x, word is at top of screen at start
+		this.maxX=maxX;
+	}
 	
 	public static void increaseSpeed( ) {
 		minWait+=50;
@@ -110,7 +116,7 @@ public class FallingWord {
 	}
     
 	// method for words that are moving horizontally.
-	
+
 	public synchronized  void cross(int inc) { //***************************************
 		setX(x+inc);
 	}
