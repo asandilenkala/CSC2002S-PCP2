@@ -36,7 +36,7 @@ public class HungryWordMover extends Thread {
 		System.out.println(myWord.getWord() + " started" );
 		while (!done.get()) {				
 			//animate the word
-			while (!myWord.crossed() && !done.get()) {  //**************************************
+			while (!myWord.crossed() && !done.get()) {  //*******************************
 				    myWord.cross(10);
 					try {
 						sleep(myWord.getSpeed());

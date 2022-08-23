@@ -108,7 +108,9 @@ public class FallingWord {
 	public synchronized  void drop(int inc) {
 		setY(y+inc);
 	}
-
+    
+	// method for words that are moving horizontally.
+	
 	public synchronized  void cross(int inc) { //***************************************
 		setX(x+inc);
 	}
