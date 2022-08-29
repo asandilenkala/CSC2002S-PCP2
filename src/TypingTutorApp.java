@@ -51,7 +51,7 @@ public class TypingTutorApp {
         g.setLayout(new BoxLayout(g, BoxLayout.PAGE_AXIS)); 
       	g.setSize(frameX,frameY);
  
-		gameWindow = new GamePanel(words,yLimit,done,started,won);
+		gameWindow = new GamePanel(words,yLimit,done,started,won, crossingWords);
 		gameWindow.setSize(frameX,yLimit+100);
 	    g.add(gameWindow);
 	    
@@ -188,14 +188,17 @@ public class TypingTutorApp {
 	  	//initialize shared array of current words with the words for this game
 		for (int i=0;i<noWords;i++) {
 			words[i]=new FallingWord(dict.getNewWord(),gameWindow.getValidXpos(),yLimit);
+			crossingWords[i]=new CrossingWord(dict.getNewWord(),gameWindow.getValidYpos(),xLimit); //*********************
 		}
 		//create threads to move them
 	    for (int i=0;i<noWords;i++) {
 	    		wrdShft[i] = new WordMover(words[i],dict,score,startLatch,done,pause);
+				hungryMover[i] = new HungryWordMover(crossingWords[i], dict, score, startLatch, done, pause); //***************
 	    }
         //word movers waiting on starting line
      	for (int i=0;i<noWords;i++) {
-			wrdShft[i] .start();
+			wrdShft[i].start();
+			hungryMover[i].start(); //**************************************************************************
      	}
 	}
 	
@@ -242,9 +245,12 @@ public static void main(String[] args) {
 		}
 				
 		FallingWord.dict=dict; //set the class dictionary for the words.
+		CrossingWord.dict = dict; //*******************************************************************************
 		
 		words = new FallingWord[noWords];  //array for the  current chosen words from dict
 		wrdShft = new WordMover[noWords]; //array for the threads that animate the words
+		crossingWords = new CrossingWord[noWords]; //*********************************************************************
+		hungryMover = new HungryWordMover[noWords]; //*********************************************************************
 		
 		CatchWord.setWords(words);  //class setter - static method
 		CatchWord.setScore(score);  //class setter - static method
