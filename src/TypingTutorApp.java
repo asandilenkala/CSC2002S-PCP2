@@ -20,12 +20,12 @@ public class TypingTutorApp {
    	static int frameX=1000;
 	static int frameY=600;
 	static int yLimit=480;
+	static int yLimit=400; //************************************************
 
 	static WordDictionary dict = new WordDictionary(); //use default dictionary, to read from file eventually
 
 	static FallingWord[] words;
 	static WordMover[] wrdShft;
-	static HungryWordMover[] hungryMvr; //*****************************************************
 	static CountDownLatch startLatch; //so threads can start at once
 	
 	static AtomicBoolean started;  
@@ -133,7 +133,7 @@ public class TypingTutorApp {
 					 //word movers waiting on starting line
 					   	for (int i=0;i<noWords;i++) {
 					     		try {
-					     			if (wrdShft[i].isAlive ())	{ //*********************
+					     			if (wrdShft[i].isAlive ())	{
 										wrdShft[i].join();}
 								} catch (InterruptedException e1) {
 									// TODO Auto-generated catch block
@@ -190,7 +190,6 @@ public class TypingTutorApp {
 		//create threads to move them
 	    for (int i=0;i<noWords;i++) {
 	    		wrdShft[i] = new WordMover(words[i],dict,score,startLatch,done,pause);
-				hungryMvr[i] = new HungryWordMover(words[i],dict,score,startLatch,done,pause); //************
 	    }
         //word movers waiting on starting line
      	for (int i=0;i<noWords;i++) {
@@ -244,7 +243,6 @@ public static void main(String[] args) {
 		
 		words = new FallingWord[noWords];  //array for the  current chosen words from dict
 		wrdShft = new WordMover[noWords]; //array for the threads that animate the words
-		hungryMvr = new HungryWordMover[noWords]; //array for the threads that animate the words *******************
 		
 		CatchWord.setWords(words);  //class setter - static method
 		CatchWord.setScore(score);  //class setter - static method
