@@ -11,13 +11,16 @@ public class GamePanel extends JPanel implements Runnable {
 		private AtomicBoolean started ; //REMOVE
 		private AtomicBoolean won ; //REMOVE+
 
+		private CrossingWord[] crossingWords; //**************************************
 		private FallingWord[] words;
 		private int noWords;
 		private final static int borderWidth=25; //appearance - border
+        private final static int borderHeight=25; //************************************
 
 		GamePanel(FallingWord[] words, int maxY,	
-				 AtomicBoolean d, AtomicBoolean s, AtomicBoolean w) {
+				 AtomicBoolean d, AtomicBoolean s, AtomicBoolean w, CrossingWord[] crossingWords) { //********************************
 			this.words=words; //shared word list
+			this.crossingWords = crossingWords; //********************************************
 			noWords = words.length; //only need to do this once
 			done=d; //REMOVE
 			started=s; //REMOVE
@@ -41,9 +44,12 @@ public class GamePanel extends JPanel implements Runnable {
 		    }
 		    else if (!done.get()) {
 		    	for (int i=0;i<noWords;i++){	    	
-		    		g.drawString(words[i].getWord(),words[i].getX()+borderWidth,words[i].getY());	//************
+		    		g.drawString(words[i].getWord(),words[i].getX()+borderWidth,words[i].getY());	//*******************************************
 		    	}
-		    	g.setColor(Color.lightGray); //change colour of pen
+				int position = 2;
+				g.drawString(crossingWords[position].getWord(), crossingWords[position].getX()+borderWidth,crossingWords[position].getY()); //************
+		    	
+				g.setColor(Color.lightGray); //change colour of pen
 		    	g.fillRect(borderWidth,0,width,borderWidth);
 		   }
 		   else { if (won.get()) {
@@ -60,6 +66,12 @@ public class GamePanel extends JPanel implements Runnable {
 			int width = getWidth()-borderWidth*4;
 			int x= (int)(Math.random() * width);
 			return x;
+		}
+
+		public int getValidYpos() {   //**********************************************************
+			int height = getHeight()-borderHeight*4;
+			int y= (int)(Math.random() * height);
+			return y;
 		}
 		
 		public void run() {
