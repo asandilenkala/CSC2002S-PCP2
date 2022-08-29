@@ -133,8 +133,8 @@ public class TypingTutorApp {
 					 //word movers waiting on starting line
 					   	for (int i=0;i<noWords;i++) {
 					     		try {
-					     			if (wrdShft[i].isAlive () && hungryMvr[i].isAlive ())	{ //*********************
-									wrdShft[i].join();}
+					     			if (wrdShft[i].isAlive ())	{ //*********************
+										wrdShft[i].join();}
 								} catch (InterruptedException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
@@ -190,10 +190,11 @@ public class TypingTutorApp {
 		//create threads to move them
 	    for (int i=0;i<noWords;i++) {
 	    		wrdShft[i] = new WordMover(words[i],dict,score,startLatch,done,pause);
+				hungryMvr[i] = new HungryWordMover(words[i],dict,score,startLatch,done,pause); //************
 	    }
         //word movers waiting on starting line
      	for (int i=0;i<noWords;i++) {
-     		wrdShft[i] .start();
+			wrdShft[i] .start();
      	}
 	}
 	
@@ -243,6 +244,7 @@ public static void main(String[] args) {
 		
 		words = new FallingWord[noWords];  //array for the  current chosen words from dict
 		wrdShft = new WordMover[noWords]; //array for the threads that animate the words
+		hungryMvr = new HungryWordMover[noWords]; //array for the threads that animate the words *******************
 		
 		CatchWord.setWords(words);  //class setter - static method
 		CatchWord.setScore(score);  //class setter - static method

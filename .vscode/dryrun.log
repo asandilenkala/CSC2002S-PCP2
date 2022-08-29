@@ -1,0 +1,11 @@
+make: Entering directory '/home/asandile/Desktop/A2 PCP2'
+/usr/bin/javac -d bin/ -cp bin src/WordDictionary.java
+/usr/bin/javac -d bin/ -cp bin src/FallingWord.java
+/usr/bin/javac -d bin/ -cp bin src/GamePanel.java
+/usr/bin/javac -d bin/ -cp bin src/Score.java
+/usr/bin/javac -d bin/ -cp bin src/CatchWord.java
+/usr/bin/javac -d bin/ -cp bin src/ScoreUpdater.java
+/usr/bin/javac -d bin/ -cp bin src/WordMover.java
+/usr/bin/javac -d bin/ -cp bin src/TypingTutorApp.java
+make: Leaving directory '/home/asandile/Desktop/A2 PCP2'
+ 

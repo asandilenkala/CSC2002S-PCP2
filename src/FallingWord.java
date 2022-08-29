@@ -3,9 +3,7 @@ public class FallingWord {
 	private int x; //position - width
 	private int y; // postion - height
 	private int maxY; //maximum height
-	private int maxX; // **************************************************************************
 	private boolean dropped; //flag for if user does not manage to catch word in time
-	private boolean crossed; // **************************************************************
 	
 	private int fallingSpeed; //how fast this word is
 	private static int maxWait=1000;
@@ -17,10 +15,8 @@ public class FallingWord {
 		word="computer"; // a default - not used
 		x=0;
 		y=0;	
-		maxY=300; 
-		maxX=1000; //**************************************************************************
+		maxY=300;
 		dropped=false;
-		crossed=false; //**********************************************************************
 		fallingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait); 
 	}
 	
@@ -33,12 +29,6 @@ public class FallingWord {
 		this(text);
 		this.x=x; //only need to set x, word is at top of screen at start
 		this.maxY=maxY;
-	}
-
-	FallingWord(int y, int maxX, String text) { //most commonly used constructor - sets it all. *************
-		this(text);
-		this.y=y; //only need to set x, word is at top of screen at start
-		this.maxX=maxX;
 	}
 	
 	public static void increaseSpeed( ) {
@@ -114,19 +104,9 @@ public class FallingWord {
 	public synchronized  void drop(int inc) {
 		setY(y+inc);
 	}
-    
-	// method for words that are moving horizontally.
-
-	public synchronized  void cross(int inc) { //***************************************
-		setX(x+inc);
-	}
 	
 	public synchronized  boolean dropped() {
 		return dropped;
 	}
-
-    public synchronized  boolean crossed() {  //**********************************************
-		return crossed;
-	}	
 
 }
